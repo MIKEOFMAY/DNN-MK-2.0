@@ -107,6 +107,7 @@ html, body, a, button, [onclick] {
   font-weight: 300;
 }
 
+/* Experience Section (Blue Background - Exact Reference) */
 .awards-section {
   width: 49%;
   margin-left: 26vw;
@@ -169,7 +170,7 @@ html, body, a, button, [onclick] {
   height: 1.2vw;
 }
 
-/* Marquee Text */
+/* Marquee Text - Exact Reference */
 #page5 {
   width: 100%;
   min-height: 80vh;
@@ -209,7 +210,7 @@ html, body, a, button, [onclick] {
   100% { transform: translateX(calc(-100% - 30px)); }
 }
 
-/* Footer */
+/* Footer - Exact Reference Match */
 footer {
   width: 100%;
   height: fit-content;
@@ -292,6 +293,7 @@ footer {
   width: 60%;
 }
 
+/* Frame hover effect - slide up on hover */
 .frame {
   width: fit-content;
   height: 1.6vw;
@@ -306,13 +308,17 @@ footer {
   line-height: 1.6vw;
 }
 
+.frame:hover span:first-child {
+  transform: translateY(-100%);
+}
+
 #copyright {
   margin-top: 3vw;
   font-weight: 300;
   font-size: 0.9vw;
 }
 
-/* ===== FOOTER UNDERLINE FIX - ALWAYS VISIBLE ===== */
+/* ===== FOOTER UNDERLINE - STATIC (NOT ANIMATED) ===== */
 #footer-wrapper .underline {
   transform: scaleX(1) !important;
   -webkit-transform: scaleX(1) !important;
