@@ -1,0 +1,653 @@
+/* project-detail.css - Styles for project-detail.html only */
+
+/* ===== PRELOADER FIX ===== */
+#preloader {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0b0b0b;
+  z-index: 9999999 !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20vh 13vw 4vw 6.5vw;
+}
+
+#preloader * {
+  position: relative;
+  z-index: 10000000;
+}
+
+.data-scroll-container {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.data-scroll-container.loaded {
+  opacity: 1;
+}
+
+/* Force custom cursor - NO pointer finger */
+html, body, a, button, [onclick] {
+  cursor: none !important;
+}
+
+/* ===== PROJECT DETAIL PAGE LAYOUT ===== */
+#page1 {
+  height: auto !important;
+  padding-bottom: 5vw;
+  background-color: #151515;
+}
+
+.project-header {
+  width: 70%;
+  margin: 0 auto 15vw 26vw;
+  padding-top: 8vw;
+}
+
+.project-title {
+  text-transform: uppercase;
+  font-size: 12vw;
+  font-weight: 500;
+  line-height: 1;
+  margin-bottom: 2vw;
+}
+
+.project-info {
+  display: flex;
+  gap: 3vw;
+  font-size: 1.3vw;
+  opacity: 0.7;
+  margin-left: 0.4vw; /* ← Adjust this value to nudge right */
+}
+
+/* Remove default browser margins for exact alignment */
+.project-info p {
+  margin: 0;
+}
+
+/* ===== PROJECT IMAGES CONTAINER ===== */
+.project-images-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Wrapper for image + circle positioning */
+.project-image-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+}
+
+/* Full Width Image - REDUCED TO 85% */
+.project-image-full {
+  width: 85%;
+  margin: 0 auto 15vw auto;
+  overflow: hidden;
+  display: block;
+}
+
+.project-image-full img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.project-image-full:hover img {
+  transform: scale(1.05);
+}
+
+/* Left Aligned Image */
+.project-image-left {
+  width: 50%;
+  margin: 0 0 15vw 0;
+  overflow: hidden;
+}
+
+.project-image-left img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.project-image-left:hover img {
+  transform: scale(1.05);
+}
+
+/* Right Aligned Image */
+.project-image-right {
+  width: 50%;
+  margin: 0 0 15vw auto;
+  overflow: hidden;
+}
+
+.project-image-right img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.project-image-right:hover img {
+  transform: scale(1.05);
+}
+
+/* ===== INTERACTIVE CIRCLES - IN BLANK SPACES NEXT TO IMAGES ===== */
+.interactive-circle {
+  position: absolute;
+  width: 18vw;
+  height: 18vw;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  cursor: none !important;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  background: transparent;
+}
+
+/* Circle in blank space RIGHT of left-aligned image */
+.left-wrapper .interactive-circle {
+  right: 8%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Circle in blank space LEFT of right-aligned image */
+.right-wrapper .interactive-circle {
+  left: 8%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Circle icon (arrow) */
+/* Circle icon (arrow) - BASE POSITIONING ONLY */
+.circle-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 0.3s ease;
+  
+  /* CRITICAL: Forces SVG to rotate around its own visual center */
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* === ARROW 1: "Next Image" === */
+.circle-next .circle-icon {
+  rotate: 180deg; 
+  top: 65%;
+  bottom: 50%;
+  left: 50%;
+  right: 40%;
+}
+
+/* === ARROW 2: "Read Details" === */
+.circle-down .circle-icon {
+  rotate: 0deg; 
+  
+  
+}
+
+.circle-icon svg {
+  width: 5vw;
+  height: 5vw;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.5;
+}
+
+/* Circle message/caption overlay */
+.circle-message {
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  scale: 0.7;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.circle-message p {
+  color: #000;
+  width: 80%;
+  font-size: 0.85vw;
+  font-weight: 400;
+  opacity: 0;
+  scale: 0.9;
+  transition: all 0.3s ease 0.05s;
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* Hover states */
+.interactive-circle:hover {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.interactive-circle:hover .circle-message {
+  opacity: 1;
+  scale: 1;
+}
+
+.interactive-circle:hover .circle-message p {
+  opacity: 1;
+  scale: 1;
+}
+
+.interactive-circle:hover .circle-icon {
+  opacity: 0;
+}
+
+/* Caption-only circle (no icon) */
+.circle-caption .circle-icon {
+  display: none;
+}
+
+.circle-caption .circle-message {
+  opacity: 0.15;
+  scale: 0.95;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.circle-caption:hover .circle-message {
+  opacity: 1;
+  scale: 1;
+}
+
+/* Project Description Section */
+.project-description-section {
+  width: 70%;
+  margin: 15vw auto 0 26vw;
+}
+
+.project-description {
+  font-size: 1.8vw;
+  line-height: 2.4vw;
+}
+
+/* Project Navigation */
+.project-navigation {
+  width: 70%;
+  margin: 15vw auto 0 26vw;
+  padding-bottom: 8vw;
+}
+
+.next-project {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5vw;
+  font-size: 1.2vw;
+  text-transform: uppercase;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+  cursor: none !important;
+}
+
+.next-project:hover {
+  opacity: 1;
+}
+
+.next-project svg {
+  width: 2vw;
+  height: 2vw;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5vw;
+  font-size: 1vw;
+  margin: 0 0 3vw 26vw;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+  cursor: none !important;
+}
+
+.back-link:hover {
+  opacity: 1;
+}
+
+.back-link svg {
+  width: 1.2vw;
+  height: 1.2vw;
+}
+
+/* Marquee Text */
+#page5 {
+  width: 100%;
+  min-height: 80vh;
+  background-color: #151515;
+  padding-top: 25vw;
+}
+
+.marquee-text {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.marquee-text h1 {
+  text-transform: uppercase;
+  -webkit-text-stroke: 2px #ffffffb6;
+  color: transparent;
+  font-weight: 400;
+  font-size: 7vw;
+  line-height: 7.5vw;
+  display: inline-block;
+  margin-right: 26px;
+  animation: move-text 18s linear infinite;
+}
+
+.marquee-text h1 span {
+  font-family: "Silk Serif";
+  color: transparent;
+}
+
+.marquee-text2 h1 {
+  animation-direction: reverse;
+}
+
+@keyframes move-text {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(calc(-100% - 30px)); }
+}
+
+/* Footer */
+footer {
+  width: 100%;
+  height: fit-content;
+  background-color: #151515;
+  border-top: 1px solid #151515;
+}
+
+#footer-wrapper {
+  width: 70%;
+  height: fit-content;
+  margin-left: 26vw;
+  margin-top: 6vw;
+  padding-bottom: 3vw;
+}
+
+#footer-heading-container {
+  position: relative;
+  display: flex;
+}
+
+#footer-heading-container svg {
+  width: 6vw;
+  height: 7vw;
+  rotate: -90deg;
+  margin-left: 3.5vw;
+}
+
+.text-container h1 {
+  font-family: "Plain";
+  text-transform: uppercase;
+  font-size: 7.4vw;
+  line-height: 7vw;
+  font-weight: 500;
+  margin-bottom: 4vw;
+}
+
+.text-container .heading2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.heading1 span { opacity: 1; }
+.heading2 span {
+  opacity: 0;
+  font-family: "Silk Serif";
+  -webkit-text-stroke: 2px #fff;
+  color: transparent;
+}
+
+#footer-heading-container::before {
+  content: "04";
+  position: absolute;
+  top: 0;
+  left: -14%;
+  font-family: "Silk Serif";
+  font-size: 3.3vw;
+}
+
+#footer-center {
+  margin: 5vw 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+#footer-center .footer-part {
+  width: 33%;
+}
+
+.footer-part h4 {
+  font-weight: 300;
+  font-size: 0.9vw;
+  margin-bottom: 1.8vw;
+}
+
+.address-container h2 {
+  font-size: 1.5vw;
+  font-weight: 300;
+  width: 60%;
+}
+
+.frame {
+  width: fit-content;
+  height: 1.6vw;
+  overflow: hidden;
+  align-content: center;
+}
+
+.frame span {
+  height: 1.6vw;
+  display: block;
+  font-size: 1.4vw;
+  line-height: 1.6vw;
+}
+
+#copyright {
+  margin-top: 3vw;
+  font-weight: 300;
+  font-size: 0.9vw;
+}
+
+/* ===== FOOTER UNDERLINE - ANIMATED (NOT STATIC) ===== */
+#footer-wrapper .underline {
+  width: 100%;
+  height: 1px;
+  background-color: #fff;
+  margin: 1.5vw 0;
+  display: block;
+  transform-origin: right center;
+  transform: scaleX(0);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  html, body, a, button, [onclick] {
+    cursor: auto !important;
+  }
+  
+  #preloader {
+    padding: 0 5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .project-header {
+    width: 90%;
+    margin: 0 auto 15vw 5vw;
+    padding-top: 12vw;
+  }
+
+  .project-title {
+    font-size: 15vw;
+  }
+
+  .project-info {
+    flex-direction: column;
+    gap: 2vw;
+    font-size: 4vw;
+  }
+
+  .project-images-container {
+    gap: 0;
+  }
+
+  .project-image-full {
+    width: 85%;
+    margin: 0 auto 10vw auto;
+  }
+
+  .project-image-left,
+  .project-image-right {
+    width: 90%;
+    margin: 0 auto 10vw auto;
+  }
+
+  /* Hide interactive circles on mobile */
+  .interactive-circle {
+    display: none !important;
+  }
+
+  .project-description-section {
+    width: 90%;
+    margin: 15vw auto 0 auto;
+  }
+
+  .project-description {
+    font-size: 4.5vw;
+    line-height: 5.5vw;
+  }
+
+  .project-navigation {
+    width: 90%;
+    margin: 15vw auto 0 auto;
+    padding-bottom: 8vw;
+  }
+
+  .next-project {
+    font-size: 4vw;
+    gap: 3vw;
+  }
+
+  .next-project svg {
+    width: 5vw;
+    height: 5vw;
+  }
+
+  .back-link {
+    font-size: 4vw;
+    margin: 0 0 6vw 5vw;
+  }
+
+  .back-link svg {
+    width: 4vw;
+    height: 4vw;
+  }
+
+  #page5 {
+    min-height: 0;
+    height: fit-content;
+    padding-bottom: 30vw;
+  }
+
+  .marquee-text h1 {
+    font-size: 12vw;
+    line-height: 12.5vw;
+    margin-right: 12px;
+    animation-duration: 28s;
+  }
+
+  footer {
+    min-height: 95vh;
+  }
+
+  #footer-wrapper {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 6vw;
+  }
+
+  #footer-heading-container svg {
+    height: 10.5vw;
+    margin-left: 4.5vw;
+  }
+
+  .text-container h1 {
+    font-size: 10vw;
+    line-height: 10.5vw;
+  }
+
+  .heading2 span {
+    -webkit-text-stroke: 1px #fff;
+  }
+
+  #footer-heading-container::before {
+    top: -70%;
+    left: 0;
+    font-size: 5.5vw;
+  }
+
+  #footer-center {
+    margin: 15vw 0;
+    padding: 2vw 0;
+    flex-direction: column;
+    gap: 10vw;
+  }
+
+  #footer-center .footer-part {
+    width: 100%;
+  }
+
+  .footer-part h4 {
+    font-weight: 400;
+    font-size: 4vw;
+    margin-bottom: 6vw;
+  }
+
+  .address-container h2 {
+    font-size: 5.5vw;
+    line-height: 5.3vw;
+  }
+
+  .frame {
+    height: 6.5vw;
+  }
+
+  .frame span {
+    height: 6.5vw;
+    font-size: 5.5vw;
+    line-height: 6.5vw;
+  }
+
+  #copyright {
+    margin: 12vw 0;
+    font-size: 4vw;
+  }
+}
