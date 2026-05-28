@@ -102,6 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
 
+
     // Gooey effect for project images (Desktop Only)
     if (window.innerWidth > 768 && typeof Shery !== "undefined") {
       Shery.imageEffect(".work-card .img-wrapper", {

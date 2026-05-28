@@ -193,11 +193,21 @@ html, body, a, button, [onclick] {
 }
 
 .circle-one {
-  margin: 28vw 0 0 12.5vw;
+  margin: 28vw 0 0 10vw;
+}
+
+.circle-one svg {
+  position: relative;
+  top: 1px;
+  left: 0px;
 }
 
 .circle-two {
   margin: 2.5vw 0 0 0;
+}
+
+.circle-three {
+  margin: 41vw 1.5vw 0 12.5vw;
 }
 
 .circle-two svg {
@@ -208,12 +218,10 @@ html, body, a, button, [onclick] {
   text-align: center;
 }
 
-.circle-three {
-  margin: 41vw 1.5vw 0 12.5vw;
-}
+
 
 .circle-three svg {
-  rotate: -90deg;
+  rotate: 0deg;
 }
 
 .circle-three .circle-message p {

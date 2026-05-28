@@ -296,6 +296,15 @@ nav #nav-icon {
   text-align: center;
 }
 
+#logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none; /* Removes default link underline */
+  color: inherit;        /* Keeps your current text/SVG color */
+  cursor: none !important; /* Keeps your custom cursor active */
+}
+
+
 nav #nav-part2 {
   display: -webkit-box;
   display: -ms-flexbox;

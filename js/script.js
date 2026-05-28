@@ -1,10 +1,14 @@
 function locoScroll() {
   gsap.registerPlugin(ScrollTrigger);
+  const scrollContainer = document.querySelector(".data-scroll-container");
+  if (!scrollContainer) return; // Guard clause
+
   const locoScroll = new LocomotiveScroll({
-    el: document.querySelector(".data-scroll-container"),
+    el: scrollContainer,
     smooth: true,
     smoothMobile: true
   });
+  
   locoScroll.on("scroll", ScrollTrigger.update);
   ScrollTrigger.scrollerProxy(".data-scroll-container", {
     scrollTop(value) {
@@ -30,8 +34,9 @@ function locoScroll() {
 
 function progressCounter() {
   const progressCount = document.querySelector("#progress h5");
-  let count = 0;
+  if (!progressCount) return; // Guard clause
 
+  let count = 0;
   const counter = setInterval(function () {
     count++;
     if (count === 100) {
@@ -42,86 +47,31 @@ function progressCounter() {
 }
 
 function preloaderAnimations() {
-  gsap.from(".line h1", {
-    y: 150,
-    stagger: 0.25,
-    duration: 0.5,
-    delay: 0.3
-  });
+  const preloader = document.querySelector("#preloader");
+  if (!preloader) return; // Guard clause
 
-  gsap.from("#progress", {
-    opacity: 0,
-    duration: 0.8,
-    delay: 0.6
-  });
+  gsap.from(".line h1", { y: 150, stagger: 0.25, duration: 0.5, delay: 0.3 });
+  gsap.from("#progress", { opacity: 0, duration: 0.8, delay: 0.6 });
+  gsap.from("#wait-message p", { opacity: 0, duration: 0.4, delay: 1.2 });
+  gsap.to("#line1 #progress", { opacity: 0, duration: 0.5, delay: 3.2 });
+  gsap.to("#line1 h1", { opacity: 0, duration: 0.9, delay: 3.2 });
+  gsap.to("#line3 h1 span", { opacity: 0, duration: 0.9, delay: 3.2 });
+  gsap.to("#wait-message p", { opacity: 0, duration: 0.9, delay: 3.2 });
+  gsap.to("#line2 h1", { opacity: 0, duration: 0.8, delay: 3.4 });
+  gsap.to("#line3 h1", { opacity: 0, duration: 0.8, delay: 3.4 });
+  gsap.to("#preloader", { y: -1600, duration: 1.45, delay: 4.5 });
+  gsap.to("#preloader", { display: "none", delay: 4.65 });
 
-  gsap.from("#wait-message p", {
-    opacity: 0,
-    duration: 0.4,
-    delay: 1.2
-  });
-
-  gsap.to("#line1 #progress", {
-    opacity: 0,
-    duration: 0.5,
-    delay: 3.2
-  });
-
-  gsap.to("#line1 h1", {
-    opacity: 0,
-    duration: 0.9,
-    delay: 3.2
-  });
-
-  gsap.to("#line3 h1 span", {
-    opacity: 0,
-    duration: 0.9,
-    delay: 3.2
-  });
-
-  gsap.to("#wait-message p", {
-    opacity: 0,
-    duration: 0.9,
-    delay: 3.2
-  });
-
-  gsap.to("#line2 h1", {
-    opacity: 0,
-    duration: 0.8,
-    delay: 3.4
-  });
-
-  gsap.to("#line3 h1", {
-    opacity: 0,
-    duration: 0.8,
-    delay: 3.4
-  });
-
-  gsap.to("#preloader", {
-    y: -1600,
-    duration: 1.45,
-    delay: 4.5
-  });
-
-  gsap.to("#preloader", {
-    display: "none",
-    delay: 4.65
-  });
-
-  gsap.from(".hero-text h1", {
-    y: 150,
-    duration: 0.6,
-    stagger: 0.25,
-    delay: 4.35
-  });
-
-  gsap.to(".hero-text", {
-    overflow: "visible",
-    delay: 5.7
-  });
+  // Only animate hero text if it exists (usually only on index.html)
+  if (document.querySelector(".hero-text")) {
+    gsap.from(".hero-text h1", { y: 150, duration: 0.6, stagger: 0.25, delay: 4.35 });
+    gsap.to(".hero-text", { overflow: "visible", delay: 5.7 });
+  }
 }
 
 function cursor() {
+  if (!document.querySelector("#cursor")) return; // Guard clause
+
   document.documentElement.style.cursor = "none";
 
   document.addEventListener("mousemove", function (dets) {
@@ -140,19 +90,11 @@ function cursorAnimation() {
     const elements = document.querySelectorAll(elem);
     elements.forEach((element) => {
       element.addEventListener("mousemove", function () {
-        gsap.to("#cursor", {
-          scale: 1.4,
-          duration: 0.3,
-          ease: "sine"
-        });
+        gsap.to("#cursor", { scale: 1.4, duration: 0.3, ease: "sine" });
       });
 
       element.addEventListener("mouseleave", function () {
-        gsap.to("#cursor", {
-          scale: 1,
-          duration: 0.3,
-          ease: "sine"
-        });
+        gsap.to("#cursor", { scale: 1, duration: 0.3, ease: "sine" });
       });
     });
   }
@@ -162,7 +104,8 @@ function cursorAnimation() {
 }
 
 function magnetEffect() {
-  Shery.makeMagnet("#menu", {
+  // Added #logo next to #menu
+  Shery.makeMagnet("#menu, #logo", {
     ease: "cubic-bezier(0.23, 1, 0.320, 1)",
     duration: 0.4
   });
@@ -175,6 +118,8 @@ function magnetEffect() {
 
 function flagAnimation() {
   const hoverContainer = document.querySelector(".text3");
+  if (!hoverContainer) return; // Guard clause (Prevents error on pages without .text3)
+
   const hoverContainerDims = hoverContainer.getBoundingClientRect();
 
   hoverContainer.addEventListener("mousemove", function (dets) {
@@ -206,6 +151,8 @@ function flagAnimation() {
 
 function videoCursorHandler() {
   const videoContainer = document.querySelector("#video-container");
+  if (!videoContainer) return; // Guard clause (Prevents error on pages without video)
+
   const videoCursor = document.querySelector("#video-cursor");
   const video = document.querySelector("#video-container video");
 
@@ -214,27 +161,13 @@ function videoCursorHandler() {
     const x = dets.x - videoDims.x;
     const y = dets.y - videoDims.y;
 
-    gsap.to("#cursor", {
-      opacity: 0
-    });
-
-    gsap.to("#video-cursor", {
-      top: y - 50,
-      left: x - 50,
-      ease: "expo.out"
-    });
+    gsap.to("#cursor", { opacity: 0 });
+    gsap.to("#video-cursor", { top: y - 50, left: x - 50, ease: "expo.out" });
   });
 
   videoContainer.addEventListener("mouseleave", function (dets) {
-    gsap.to("#cursor", {
-      opacity: 1
-    });
-
-    gsap.to("#video-cursor", {
-      top: "-10%",
-      left: "69%",
-      ease: "expo.out"
-    });
+    gsap.to("#cursor", { opacity: 1 });
+    gsap.to("#video-cursor", { top: "-10%", left: "69%", ease: "expo.out" });
   });
 
   let isPaused = true;
@@ -247,7 +180,6 @@ function videoCursorHandler() {
       if (window.innerWidth <= 768) {
         videoCursor.style.opacity = 0;
       }
-
       isPaused = false;
     } else {
       videoCursor.innerHTML = `<i class="ri-play-fill"></i>`;
@@ -255,42 +187,35 @@ function videoCursorHandler() {
       video.pause();
       video.style.opacity = 0;
       videoCursor.style.opacity = 1;
-
       isPaused = true;
     }
   });
 }
 
-function textSwipeEffect(
-  textContainer,
-  swipeOffsetY,
-  swipeDuration,
-  hoverElementSelector = null
-) {
+function textSwipeEffect(textContainer, swipeOffsetY, swipeDuration, hoverElementSelector = null) {
   let frames = document.querySelectorAll(textContainer);
+  if (frames.length === 0) return; // Guard clause
 
   frames.forEach(function (frame, index) {
     let hoverElement = hoverElementSelector
       ? document.querySelectorAll(hoverElementSelector)[index]
       : frame;
 
+    if(!hoverElement) return; // Safety check
+
     hoverElement.addEventListener("mousemove", function () {
-      gsap.to(frame.children, {
-        y: swipeOffsetY,
-        duration: swipeDuration
-      });
+      gsap.to(frame.children, { y: swipeOffsetY, duration: swipeDuration });
     });
 
     hoverElement.addEventListener("mouseleave", function () {
-      gsap.to(frame.children, {
-        y: 0,
-        duration: swipeDuration
-      });
+      gsap.to(frame.children, { y: 0, duration: swipeDuration });
     });
   });
 }
 
 function gooeyEffect() {
+  if (!document.querySelector(".project-image")) return; // Guard clause
+
   Shery.imageEffect(".project-image", {
     style: 6,
     gooey: true,
@@ -331,8 +256,10 @@ function gooeyEffect() {
 }
 
 function textFadeEffect() {
-  const string = "Let's Create";
   const textContainer = document.querySelector(".text-container");
+  if (!textContainer) return; // Guard clause
+
+  const string = "Let's Create";
   const headings = document.querySelectorAll(".text-container h1");
   let hoverTimer;
   let isHovering = false;
@@ -349,31 +276,13 @@ function textFadeEffect() {
     isHovering = true;
     hoverTimer = setTimeout(() => {
       if (isHovering) {
-        gsap.to(".heading1 span", {
-          opacity: 0,
-          duration: 0.2,
-          stagger: 0.05
-        });
-
-        gsap.to(".heading2 span", {
-          opacity: 1,
-          duration: 0.2,
-          stagger: 0.05,
-          delay: 0.2
-        });
+        gsap.to(".heading1 span", { opacity: 0, duration: 0.2, stagger: 0.05 });
+        gsap.to(".heading2 span", { opacity: 1, duration: 0.2, stagger: 0.05, delay: 0.2 });
 
         if (window.innerWidth <= 768) {
-          gsap.to(".arrow", {
-            x: 40,
-            duration: 0.4,
-            ease: "circ"
-          });
+          gsap.to(".arrow", { x: 40, duration: 0.4, ease: "circ" });
         } else {
-          gsap.to(".arrow", {
-            x: 100,
-            duration: 0.4,
-            ease: "circ"
-          });
+          gsap.to(".arrow", { x: 100, duration: 0.4, ease: "circ" });
         }
       }
     }, 500);
@@ -383,33 +292,13 @@ function textFadeEffect() {
     isHovering = false;
     clearTimeout(hoverTimer);
 
-    gsap.to(".heading2 span", {
-      opacity: 0,
-      duration: 0.3,
-      stagger: 0.05
-    });
-
-    gsap.to(".heading1 span", {
-      opacity: 1,
-      duration: 0.3,
-      stagger: 0.05,
-      delay: 0.3
-    });
+    gsap.to(".heading2 span", { opacity: 0, duration: 0.3, stagger: 0.05 });
+    gsap.to(".heading1 span", { opacity: 1, duration: 0.3, stagger: 0.05, delay: 0.3 });
 
     if (window.innerWidth <= 768) {
-      gsap.to(".arrow", {
-        x: 10,
-        duration: 0.4,
-        ease: "circ",
-        delay: 0.5
-      });
+      gsap.to(".arrow", { x: 10, duration: 0.4, ease: "circ", delay: 0.5 });
     } else {
-      gsap.to(".arrow", {
-        x: 20,
-        duration: 0.4,
-        ease: "circ",
-        delay: 0.5
-      });
+      gsap.to(".arrow", { x: 20, duration: 0.4, ease: "circ", delay: 0.5 });
     }
   });
 }
@@ -418,6 +307,8 @@ function underlineAnimations() {
   let underlines = document.querySelectorAll(".underline");
   underlines.forEach(function (underline) {
     let underlineParentId = underline.parentElement.id;
+    if(!underlineParentId) return;
+    
     gsap.to(`#${underlineParentId} .underline`, {
       scaleX: 1,
       duration: 1,
@@ -446,6 +337,7 @@ function underlineAnimations() {
   });
 }
 
+// --- INITIALIZATION ---
 locoScroll();
 cursor();
 progressCounter();
@@ -486,5 +378,3 @@ function runOnMobile() {
   }
 }
 runOnMobile();
-
-

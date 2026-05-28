@@ -67,11 +67,27 @@ html, body, a, button, [onclick] {
   padding-bottom: 8vw;
 }
 
+/* ================================================================ */
+/* TYPOGRAPHY FIX — ABOUT INTRO (Body text, scale ratio 1.25)       */
+/* Base: 1rem (16px) · Lead: 1.25rem (20px) · Line-height: 1.5     */
+/* Max-width: 65ch for optimal reading (~65 chars per line)         */
+/* Font-weight: 400 (regular) — no light/thin on body text          */
+/* ================================================================ */
 .about-intro {
-  font-size: 2.5vw;
-  line-height: 3vw;
-  width: 55%;
-  margin-bottom: 4vw;
+  font-family: "Plain";
+  font-size: clamp(1rem, 1.25vw, 1.5rem); /* 16px – 24px scale */
+  line-height: 1.5;
+  font-weight: 400;
+  max-width: 65ch;
+  width: 100%;
+  margin-bottom: 2rem;
+  color: #fff;
+  letter-spacing: 0;
+}
+
+.about-intro span {
+  font-size: 1em; /* inherits parent, no random sizes */
+  font-weight: 400;
 }
 
 .about-image-section {
@@ -100,11 +116,28 @@ html, body, a, button, [onclick] {
   transform: scale(1.05);
 }
 
+/* ================================================================ */
+/* TYPOGRAPHY FIX — IMAGE TEXT (Body text)                          */
+/* Base: 1rem (16px) · Line-height: 1.5 · Font-weight: 400         */
+/* Max-width: 65ch for readable paragraph width                     */
+/* ================================================================ */
 .about-image-text {
   width: 49%;
-  font-size: 1vw;
-  line-height: 1.4vw;
-  font-weight: 300;
+  font-family: "Plain";
+  font-size: 1rem; /* 16px exactly */
+  line-height: 1.5;
+  font-weight: 400;
+  color: #fff;
+}
+
+.about-image-text p {
+  max-width: 65ch;
+  margin-bottom: 1rem;
+}
+
+.about-image-text a {
+  color: #fff;
+  font-weight: 400;
 }
 
 /* Experience Section (Blue Background - Exact Reference) */
@@ -124,15 +157,32 @@ html, body, a, button, [onclick] {
   padding: 1.8vw 0;
 }
 
+/* ================================================================ */
+/* TYPOGRAPHY FIX — AWARD HEADING (h1)                              */
+/* 1.5rem (24px) · Line-height: 1.1 · Font-weight: 500             */
+/* Clean scale ratio (1.5x of body 16px = 24px)                     */
+/* ================================================================ */
 .award-item h1 {
-  font-weight: 400;
-  font-size: 1.5vw;
+  font-family: "Plain";
+  font-weight: 500;
+  font-size: 1.5rem; /* 24px — clean 1.5x scale */
+  line-height: 1.1;
+  color: #fff;
 }
 
+/* ================================================================ */
+/* TYPOGRAPHY FIX — AWARD META (small text)                         */
+/* 1rem (16px) minimum · Line-height: 1.5 · Font-weight: 400       */
+/* No light/thin weight on small text — readable at 16px            */
+/* ================================================================ */
 .award-item p {
-  font-size: 0.8vw;
+  font-family: "Plain";
+  font-size: 1rem; /* 16px minimum — no smaller */
+  line-height: 1.5;
+  font-weight: 400;
   width: 40%;
   text-align: right;
+  color: #fff;
 }
 
 .about-bottom {
@@ -146,15 +196,29 @@ html, body, a, button, [onclick] {
   margin-bottom: 1.5vw;
 }
 
+/* ================================================================ */
+/* TYPOGRAPHY FIX — BOTTOM STATEMENT (Body text, lead variant)      */
+/* 1.25rem (20px) · Line-height: 1.5 · Font-weight: 400            */
+/* Slightly larger than body for emphasis, still within 1.25 scale  */
+/* Max-width: 65ch for comfortable reading                          */
+/* ================================================================ */
 .about-bottom p {
-  font-size: 0.85vw;
+  font-family: "Plain";
+  font-size: 1.25rem; /* 20px — 1.25x of 16px base */
+  line-height: 1.5;
+  font-weight: 400;
+  max-width: 65ch;
+  color: #fff;
 }
 
 .back-link {
   display: inline-flex;
   align-items: center;
   gap: 0.5vw;
-  font-size: 1vw;
+  font-family: "Plain";
+  font-size: 1rem; /* 16px */
+  line-height: 1.5;
+  font-weight: 400;
   margin: 0 0 3vw 26vw;
   opacity: 0.7;
   transition: opacity 0.3s;
@@ -170,7 +234,7 @@ html, body, a, button, [onclick] {
   height: 1.2vw;
 }
 
-/* Marquee Text - Exact Reference */
+/* Marquee Text - Exact Reference (display text, decorative — not body typography) */
 #page5 {
   width: 100%;
   min-height: 80vh;
@@ -364,9 +428,10 @@ footer {
     margin: 0 auto;
   }
 
+  /* Mobile typography — maintains 16px minimum */
   .about-intro {
-    font-size: 5vw;
-    line-height: 6vw;
+    font-size: 1rem; /* 16px exactly on mobile */
+    line-height: 1.5;
     width: 100%;
   }
 
@@ -382,10 +447,11 @@ footer {
     height: 50vh;
   }
 
+  /* Mobile image text — 16px minimum */
   .about-image-text {
     width: 100%;
-    font-size: 4vw;
-    line-height: 5vw;
+    font-size: 1rem; /* 16px */
+    line-height: 1.5;
   }
 
   .awards-section {
@@ -403,12 +469,16 @@ footer {
     padding: 2vw 0;
   }
 
+  /* Mobile award heading — 1.25rem (20px) */
   .award-item h1 {
-    font-size: 3.9vw;
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.1;
   }
 
+  /* Mobile award meta — 1rem (16px) minimum */
   .award-item p {
-    font-size: 3.6vw;
+    font-size: 1rem; /* 16px */
+    line-height: 1.5;
     width: 100%;
     text-align: left;
   }
@@ -420,12 +490,14 @@ footer {
     padding-bottom: 12vw;
   }
 
+  /* Mobile bottom text — 1.125rem (18px) */
   .about-bottom p {
-    font-size: 3.8vw;
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.5;
   }
 
   .back-link {
-    font-size: 4vw;
+    font-size: 1rem;
     margin: 0 0 6vw 5vw;
   }
 
