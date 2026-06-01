@@ -36,43 +36,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // ===== PAGE INITIALIZATION =====
   function initAboutPage() {
-    // Initialize Locomotive Scroll
-    if (typeof LocomotiveScroll !== "undefined") {
-      const locoScroll = new LocomotiveScroll({
-        el: document.querySelector(".data-scroll-container"),
-        smooth: true,
-        smartphone: { smooth: true },
-        tablet: { smooth: true }
-      });
-
-      // Sync with GSAP ScrollTrigger
-      if (typeof ScrollTrigger !== "undefined") {
-        locoScroll.on("scroll", ScrollTrigger.update);
-        ScrollTrigger.scrollerProxy(".data-scroll-container", {
-          scrollTop: function (value) {
-            return arguments.length
-              ? locoScroll.scrollTo(value, 0, 0)
-              : locoScroll.scroll.instance.scroll.y;
-          },
-          getBoundingClientRect: function () {
-            return {
-              top: 0,
-              left: 0,
-              width: window.innerWidth,
-              height: window.innerHeight
-            };
-          },
-          pinType: document.querySelector(".data-scroll-container").style
-            .transform
-            ? "transform"
-            : "fixed"
-        });
-        ScrollTrigger.addEventListener("refresh", function () {
-          locoScroll.update();
-        });
-        ScrollTrigger.refresh();
-      }
-    }
+    // 🛑 REMOVED: Locomotive Scroll initialization
+    // script.js already initializes Locomotive on ALL pages.
+    // Creating a second instance causes conflicts and scroll bugs.
+    // We rely on the shared locoScroll instance from script.js.
 
     // Custom Cursor (Desktop Only) - NO pointer finger
     if (window.innerWidth > 768 && typeof Shery !== "undefined") {
@@ -151,10 +118,31 @@ document.addEventListener("DOMContentLoaded", function () {
       ease: "power2.out"
     });
 
-    // ===== FOOTER ANIMATION: "Let's Create" =====
     if (document.querySelector('.text-container')) {
       textFadeEffect();
     }
+
+    // ===== FIX: FORCE SCROLL RECALCULATION AFTER CONTENT LOADS =====
+    // This prevents the white blank area at bottom by ensuring Locomotive
+    // recalculates height after all images/fonts have finished loading.
+    // We access the global locoScroll instance from script.js.
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        // Access the global locoScroll instance (created in script.js)
+        if (typeof window.locoScrollInstance !== 'undefined' && window.locoScrollInstance) {
+          window.locoScrollInstance.update();
+        }
+      }, 500); // 500ms delay ensures assets are loaded
+    });
+
+    // Also recalculate on window resize
+    window.addEventListener('resize', function() {
+      setTimeout(function() {
+        if (typeof window.locoScrollInstance !== 'undefined' && window.locoScrollInstance) {
+          window.locoScrollInstance.update();
+        }
+      }, 250);
+    });
   }
 
   // ===== RESIZE HANDLER =====

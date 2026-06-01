@@ -9,6 +9,9 @@ function locoScroll() {
     smoothMobile: true
   });
   
+  // 🛑 EXPOSE INSTANCE GLOBALLY so page-specific JS can update it
+  window.locoScrollInstance = locoScroll;
+  
   locoScroll.on("scroll", ScrollTrigger.update);
   ScrollTrigger.scrollerProxy(".data-scroll-container", {
     scrollTop(value) {
@@ -256,6 +259,10 @@ function gooeyEffect() {
 }
 
 function textFadeEffect() {
+  // 🛑 THE BOUNCER: If we already built the text, stop immediately.
+  if (window.hasRunTextFadeEffect) return;
+  window.hasRunTextFadeEffect = true;
+
   const textContainer = document.querySelector(".text-container");
   if (!textContainer) return; // Guard clause
 

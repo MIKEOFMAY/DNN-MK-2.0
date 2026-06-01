@@ -395,6 +395,28 @@ footer {
   display: block;
 }
 
+/* ===== FIX: ENSURE COPYRIGHT VISIBLE ON LARGE SCREENS ===== */
+/* ===== FIX: ENSURE FOOTER NEVER CUT OFF ===== */
+
+
+footer {
+  padding-bottom: 8vw !important; /* Increased from 2vw */
+}
+
+#copyright {
+  margin-bottom: 5vw !important; /* Increased from 4vw */
+}
+
+/* Override any mobile-specific min-height that might conflict */
+@media (max-width: 768px) {
+  footer {
+    min-height: auto !important; /* Remove the 95vh that can cause issues */
+  }
+}
+
+
+
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   html, body, a, button, [onclick] {

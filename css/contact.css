@@ -41,72 +41,179 @@ html, body, a, button, [onclick] {
   transition: background-color 0.8s ease;
 }
 
+/* 1. BACK LINK (SIZE 3) - Exact match to about.css */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5vw;
+  font-family: "Plain";
+  font-size: 1rem; /* 16px - Size 3 */
+  line-height: 1.5;
+  font-weight: 400;
+  margin: 0 0 3vw 26vw; /* Anchored to 26vw */
+  opacity: 0.7;
+  transition: opacity 0.3s;
+  cursor: none !important;
+}
+.back-link:hover { opacity: 1; }
+.back-link svg { width: 1.2vw; height: 1.2vw; }
+
+/* 2. PAGE HEADER (SIZE 1) - Exact match to about.css */
 .contact-header {
   width: 70%;
-  margin: 0 auto 5vw 26vw;
+  margin: 0 auto 5vw 26vw; /* Anchored to 26vw */
 }
-
 .contact-header h1 {
   text-transform: uppercase;
-  font-size: 7.45vw;
+  font-size: 7.45vw; /* Size 1 */
   font-weight: 500;
   position: relative;
 }
-
 .contact-header h1::before {
   content: "04";
   position: absolute;
   top: 8%;
   left: -14%;
   font-family: "Silk Serif";
-  font-size: 3.3vw;
+  font-size: 3.3vw; /* Matches .about-header h1::before */
 }
 
+/* 3. INTRO CONTENT (SIZE 2) - Exact match to about.css */
 .contact-content {
   width: 70%;
-  margin: 0 auto;
-  padding-bottom: 8vw;
+  margin: 0 auto 8vw 26vw; /* Anchored to 26vw */
 }
-
 .contact-intro {
-  font-size: 2.5vw;
-  line-height: 3vw;
-  width: 55%;
-  margin-bottom: 4vw;
+  font-family: "Plain";
+  font-size: clamp(1rem, 1.25vw, 1.5rem); /* Size 2 - Matches .about-intro */
+  line-height: 1.5;
+  font-weight: 400;
+  max-width: 65ch;
+  width: 100%;
+  margin-bottom: 0;
+  color: #fff;
+  letter-spacing: 0;
 }
 
-/* ===== CONTACT FORM SECTION - CENTERED ===== */
-.contact-form-section {
+/* 4. DIRECT EMAIL CTA (SIZE 2 + SIZE 3) */
+.contact-cta-section {
   width: 70%;
-  margin: 0 auto 6vw auto;
+  margin: 0 auto 8vw 26vw; /* Anchored to 26vw */
+  text-align: left;
+  padding: 6vw 0; /* Zero side padding ensures perfect 26vw alignment */
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.cta-label {
+  font-family: "Plain";
+  font-size: 1rem; /* Size 3 */
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-bottom: 2vw;
+}
+.big-email-link {
+  display: inline-block;
+  font-family: "Plain";
+  font-weight: 500;
+  font-size: clamp(1.5rem, 2.5vw, 3rem); /* Size 2 - Scaled up for emphasis */
+  line-height: 1.2;
+  color: #fff;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.big-email-link::after {
+  content: "";
+  position: absolute;
+  bottom: -0.5vw;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #3F7DF4; 
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.big-email-link:hover { color: #3F7DF4; }
+.big-email-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.cta-subtext {
+  font-family: "Plain";
+  font-size: 1rem; /* Size 3 */
+  line-height: 1.5;
+  font-weight: 400;
+  opacity: 0.5;
+  margin-top: 2vw;
+}
+
+/* 5. CONTACT INFO SECTION (SIZE 3) - Matches .award-item meta sizing */
+.contact-info-section {
+  width: 70%;
+  margin: 0 auto 8vw 26vw; /* Anchored to 26vw */
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4vw;
-  padding: 4vw;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3vw;
+  padding: 4vw 0; /* Zero side padding for perfect alignment */
   border-radius: 2vw;
   transition: background-color 0.8s ease;
 }
+.info-box h3 {
+  font-family: "Plain";
+  font-size: 1rem; /* Size 3 */
+  font-weight: 400;
+  line-height: 1.5;
+  opacity: 0.6;
+  margin-bottom: 1.5vw;
+  text-transform: uppercase;
+}
+.info-box p,
+.info-box a {
+  font-family: "Plain";
+  font-size: 1rem; /* Size 3 */
+  line-height: 1.5;
+  font-weight: 400;
+  display: block;
+  margin-bottom: 0.8vw;
+  text-decoration: none;
+  color: #fff;
+}
+.info-box a:hover { opacity: 0.7; }
 
+/* ===== CONTACT FORM SECTION (SIZE 3) ===== */
+.contact-form-section {
+  width: 70%;
+  margin: 0 auto 8vw 26vw; /* Anchored to 26vw */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4vw;
+  padding: 4vw 0; /* Zero side padding for perfect alignment */
+  border-radius: 2vw;
+  transition: background-color 0.8s ease;
+}
 .contact-form-section .form-left,
 .contact-form-section .form-right {
   display: flex;
   flex-direction: column;
   gap: 2vw;
 }
-
 .form-group {
   margin-bottom: 2vw;
   width: 100%;
 }
-
 .form-group label {
-  display: block;
-  font-size: 0.9vw;
+  font-family: "Plain";
+  font-size: 1rem; /* Size 3 */
+  line-height: 1.5;
+  font-weight: 400;
   margin-bottom: 0.8vw;
   opacity: 0.7;
   text-align: left;
 }
-
 .form-group input,
 .form-group textarea {
   width: 100%;
@@ -114,109 +221,55 @@ html, body, a, button, [onclick] {
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: #fff;
-  font-size: 1vw;
   font-family: "Plain";
+  font-size: 1rem; /* Size 3 */
+  line-height: 1.5;
+  font-weight: 400;
   text-align: left;
   box-sizing: border-box;
   transition: border-color 0.3s ease;
 }
-
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
   border-color: #fff;
 }
-
 .form-group textarea {
   height: 12vw;
   resize: none;
 }
-
 .submit-btn {
   padding: 1.2vw 3vw;
   background: #fff;
   color: #000;
   border: none;
-  font-size: 1vw;
+  font-family: "Plain";
+  font-size: 1rem; /* Size 3 */
+  line-height: 1.5;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 1vw;
   width: fit-content;
   align-self: flex-start;
 }
-
 .submit-btn:hover {
   background: #ffa63d;
   color: #fff;
 }
 
-/* ===== CONTACT INFO SECTION - THREE COLUMNS ===== */
-.contact-info-section {
-  width: 70%;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3vw;
-  padding-bottom: 8vw;
-  padding: 4vw;
-  border-radius: 2vw;
-  transition: background-color 0.8s ease;
-}
-
-.info-box h3 {
-  font-size: 1vw;
-  opacity: 0.6;
-  margin-bottom: 1.5vw;
-  text-transform: uppercase;
-}
-
-.info-box p,
-.info-box a {
-  font-size: 1.3vw;
-  display: block;
-  margin-bottom: 0.8vw;
-  text-decoration: none;
-}
-
-.info-box a:hover {
-  opacity: 0.7;
-}
-
-/* ===== BACK LINK ===== */
-.back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5vw;
-  font-size: 1vw;
-  margin: 0 0 3vw 26vw;
-  opacity: 0.7;
-  transition: opacity 0.3s;
-  cursor: none !important;
-}
-
-.back-link:hover {
-  opacity: 1;
-}
-
-.back-link svg {
-  width: 1.2vw;
-  height: 1.2vw;
-}
-
-/* ===== MARQUEE TEXT ===== */
+/* ===== MARQUEE TEXT - Exact Reference Match ===== */
 #page5 {
   width: 100%;
   min-height: 80vh;
   background-color: #151515;
   padding-top: 25vw;
 }
-
 .marquee-text {
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
 }
-
 .marquee-text h1 {
   text-transform: uppercase;
   -webkit-text-stroke: 2px #ffffffb6;
@@ -228,29 +281,25 @@ html, body, a, button, [onclick] {
   margin-right: 26px;
   animation: move-text 18s linear infinite;
 }
-
 .marquee-text h1 span {
   font-family: "Silk Serif";
   color: transparent;
 }
-
 .marquee-text2 h1 {
   animation-direction: reverse;
 }
-
 @keyframes move-text {
   0% { transform: translateX(0%); }
   100% { transform: translateX(calc(-100% - 30px)); }
 }
 
-/* ===== FOOTER ===== */
+/* ===== FOOTER - Exact Reference Match from about.css ===== */
 footer {
   width: 100%;
   height: fit-content;
   background-color: #151515;
   border-top: 1px solid #151515;
 }
-
 #footer-wrapper {
   width: 70%;
   height: fit-content;
@@ -258,19 +307,16 @@ footer {
   margin-top: 6vw;
   padding-bottom: 3vw;
 }
-
 #footer-heading-container {
   position: relative;
   display: flex;
 }
-
 #footer-heading-container svg {
   width: 6vw;
   height: 7vw;
   rotate: -90deg;
   margin-left: 3.5vw;
 }
-
 .text-container h1 {
   font-family: "Plain";
   text-transform: uppercase;
@@ -279,13 +325,11 @@ footer {
   font-weight: 500;
   margin-bottom: 4vw;
 }
-
 .text-container .heading2 {
   position: absolute;
   top: 0;
   left: 0;
 }
-
 .heading1 span { opacity: 1; }
 .heading2 span {
   opacity: 0;
@@ -293,7 +337,6 @@ footer {
   -webkit-text-stroke: 2px #fff;
   color: transparent;
 }
-
 #footer-heading-container::before {
   content: "04";
   position: absolute;
@@ -302,62 +345,74 @@ footer {
   font-family: "Silk Serif";
   font-size: 3.3vw;
 }
-
 #footer-center {
   margin: 5vw 0;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
 }
-
 #footer-center .footer-part {
   width: 33%;
 }
-
 .footer-part h4 {
   font-weight: 300;
-  font-size: 0.9vw;
+  font-size: 0.9vw; /* Matches about.css exactly */
   margin-bottom: 1.8vw;
 }
-
 .address-container h2 {
-  font-size: 1.5vw;
+  font-size: 1.5vw; /* Matches about.css exactly */
   font-weight: 300;
   width: 60%;
 }
-
 .frame {
   width: fit-content;
   height: 1.6vw;
   overflow: hidden;
   align-content: center;
 }
-
 .frame span {
   height: 1.6vw;
   display: block;
-  font-size: 1.4vw;
+  font-size: 1.4vw; /* Matches about.css exactly */
   line-height: 1.6vw;
 }
-
+.frame:hover span:first-child {
+  transform: translateY(-100%);
+}
 #copyright {
   margin-top: 3vw;
   font-weight: 300;
-  font-size: 0.9vw;
+  font-size: 0.9vw; /* Matches about.css exactly */
+}
+
+/* ===== FOOTER UNDERLINE - STATIC ===== */
+#footer-wrapper .underline {
+  transform: scaleX(1) !important;
+  -webkit-transform: scaleX(1) !important;
+  -ms-transform: scaleX(1) !important;
+  transform-origin: right;
+  width: 100%;
+  height: 1px;
+  background-color: #fff;
+  margin: 1.5vw 0;
+  display: block;
+}
+
+/* ===== FIX: ENSURE FOOTER NEVER CUT OFF ===== */
+footer {
+  padding-bottom: 8vw !important; 
+}
+#copyright {
+  margin-bottom: 5vw !important; 
 }
 
 /* ===== BACKGROUND COLOR TRANSITIONS ===== */
-.bg-dark {
-  background-color: #151515 !important;
-}
-.bg-blue {
-  background-color: #3f7df4 !important;
-}
-.bg-orange {
-  background-color: #ffa63d !important;
-}
+.bg-dark { background-color: #151515 !important; }
+.bg-blue { background-color: #3f7df4 !important; }
+.bg-orange { background-color: #ffa63d !important; }
 
-/* ===== RESPONSIVE ===== */
+/* ===== RESPONSIVE (MOBILE) ===== */
+/* Mobile strictly follows about.css rules: 1rem for body, 10vw for headings */
 @media (max-width: 768px) {
   html, body, a, button, [onclick] {
     cursor: auto !important;
@@ -370,92 +425,82 @@ footer {
     justify-content: center;
   }
 
+  .back-link {
+    font-size: 1rem; /* Size 3 */
+    margin: 0 0 6vw 5vw; /* Anchored to 5vw on mobile */
+  }
+
   .contact-header {
     width: 90%;
-    margin: 0 auto 8vw 5vw;
+    margin: 0 auto 8vw 5vw; /* Anchored to 5vw */
   }
-
   .contact-header h1 {
-    font-size: 10vw;
+    font-size: 10vw; /* Size 1 */
   }
-
   .contact-header h1::before {
     top: -70%;
     left: 0;
-    font-size: 5.5vw;
+    font-size: 5.5vw; /* Matches about.css mobile */
   }
 
   .contact-content {
     width: 90%;
-    margin: 0 auto;
+    margin: 0 auto 8vw 5vw; /* Anchored to 5vw */
   }
-
   .contact-intro {
-    font-size: 5vw;
-    line-height: 6vw;
+    font-size: 1rem; /* Size 3 for mobile readability, matching about.css */
+    line-height: 1.5;
     width: 100%;
   }
 
-  .contact-form-section {
+  .contact-cta-section {
     width: 90%;
-    margin: 0 auto 6vw auto;
-    grid-template-columns: 1fr;
-    gap: 6vw;
-    padding: 6vw 4vw;
+    margin: 0 auto 8vw 5vw; /* Anchored to 5vw */
+    padding: 6vw 0; 
   }
-
-  .form-group label {
-    font-size: 3vw;
+  .cta-label {
+    font-size: 1rem; /* Size 3 */
   }
-
-  .form-group input,
-  .form-group textarea {
-    font-size: 4vw;
-    padding: 3vw 4vw;
+  .big-email-link {
+    font-size: 1.5rem; /* 24px - Size 2, matching .award-item h1 mobile */
+    line-height: 1.2;
   }
-
-  .form-group textarea {
-    height: 30vw;
+  .big-email-link::after {
+    bottom: -0.8vw;
+    height: 1.5px;
   }
-
-  .submit-btn {
-    font-size: 4vw;
-    padding: 3vw 6vw;
+  .cta-subtext {
+    font-size: 1rem; /* Size 3 */
   }
 
   .contact-info-section {
     width: 90%;
-    margin: 0 auto;
+    margin: 0 auto 8vw 5vw; /* Anchored to 5vw */
     grid-template-columns: 1fr;
-    gap: 8vw;
-    padding: 6vw 4vw;
+    gap: 6vw;
+    padding: 4vw 0;
   }
+  .info-box h3 { font-size: 1rem; } /* Size 3 */
+  .info-box p, .info-box a { font-size: 1rem; } /* Size 3 */
 
-  .info-box h3 {
-    font-size: 3vw;
+  .contact-form-section {
+    width: 90%;
+    margin: 0 auto 8vw 5vw; /* Anchored to 5vw */
+    grid-template-columns: 1fr;
+    gap: 4vw;
+    padding: 4vw 0;
   }
+  .form-group label { font-size: 1rem; } /* Size 3 */
+  .form-group input, .form-group textarea { font-size: 1rem; padding: 3vw 4vw; } /* Size 3 */
+  .form-group textarea { height: 30vw; }
+  .submit-btn { font-size: 1rem; padding: 3vw 6vw; } /* Size 3 */
 
-  .info-box p,
-  .info-box a {
-    font-size: 4vw;
-  }
-
-  .back-link {
-    font-size: 4vw;
-    margin: 0 0 6vw 5vw;
-  }
-
-  .back-link svg {
-    width: 4vw;
-    height: 4vw;
-  }
-
+  /* Marquee */
   #page5 {
     min-height: 0;
     height: fit-content;
     padding-bottom: 30vw;
   }
-
   .marquee-text h1 {
     font-size: 12vw;
     line-height: 12.5vw;
@@ -463,70 +508,18 @@ footer {
     animation-duration: 28s;
   }
 
-  footer {
-    min-height: 95vh;
-  }
-
-  #footer-wrapper {
-    width: 90%;
-    margin: 0 auto;
-    margin-top: 6vw;
-  }
-
-  #footer-heading-container svg {
-    height: 10.5vw;
-    margin-left: 4.5vw;
-  }
-
-  .text-container h1 {
-    font-size: 10vw;
-    line-height: 10.5vw;
-  }
-
-  .heading2 span {
-    -webkit-text-stroke: 1px #fff;
-  }
-
-  #footer-heading-container::before {
-    top: -70%;
-    left: 0;
-    font-size: 5.5vw;
-  }
-
-  #footer-center {
-    margin: 15vw 0;
-    padding: 2vw 0;
-    flex-direction: column;
-    gap: 10vw;
-  }
-
-  #footer-center .footer-part {
-    width: 100%;
-  }
-
-  .footer-part h4 {
-    font-weight: 400;
-    font-size: 4vw;
-    margin-bottom: 6vw;
-  }
-
-  .address-container h2 {
-    font-size: 5.5vw;
-    line-height: 5.3vw;
-  }
-
-  .frame {
-    height: 6.5vw;
-  }
-
-  .frame span {
-    height: 6.5vw;
-    font-size: 5.5vw;
-    line-height: 6.5vw;
-  }
-
-  #copyright {
-    margin: 12vw 0;
-    font-size: 4vw;
-  }
+  /* Footer - Exact Reference Match from about.css mobile */
+  footer { min-height: auto !important; }
+  #footer-wrapper { width: 90%; margin: 0 auto; margin-top: 6vw; }
+  #footer-heading-container svg { height: 10.5vw; margin-left: 4.5vw; }
+  .text-container h1 { font-size: 10vw; line-height: 10.5vw; }
+  .heading2 span { -webkit-text-stroke: 1px #fff; }
+  #footer-heading-container::before { top: -70%; left: 0; font-size: 5.5vw; }
+  #footer-center { margin: 15vw 0; padding: 2vw 0; flex-direction: column; gap: 10vw; }
+  #footer-center .footer-part { width: 100%; }
+  .footer-part h4 { font-weight: 400; font-size: 4vw; margin-bottom: 6vw; } 
+  .address-container h2 { font-size: 5.5vw; line-height: 5.3vw; } 
+  .frame { height: 6.5vw; }
+  .frame span { height: 6.5vw; font-size: 5.5vw; line-height: 6.5vw; } 
+  #copyright { margin: 12vw 0; font-size: 4vw; } 
 }
