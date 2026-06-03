@@ -385,18 +385,7 @@ footer {
   font-size: 0.9vw; /* Matches about.css exactly */
 }
 
-/* ===== FOOTER UNDERLINE - STATIC ===== */
-#footer-wrapper .underline {
-  transform: scaleX(1) !important;
-  -webkit-transform: scaleX(1) !important;
-  -ms-transform: scaleX(1) !important;
-  transform-origin: right;
-  width: 100%;
-  height: 1px;
-  background-color: #fff;
-  margin: 1.5vw 0;
-  display: block;
-}
+
 
 /* ===== FIX: ENSURE FOOTER NEVER CUT OFF ===== */
 footer {

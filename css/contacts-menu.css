@@ -38,6 +38,8 @@ html, body, a, button, [onclick] { cursor: none !important; }
   margin: 0 0 3vw 26vw;
   opacity: 0.7;
   transition: opacity 0.3s;
+
+  
 }
 .back-link:hover { opacity: 1; }
 .back-link svg { width: 1.2vw; height: 1.2vw; }
@@ -219,7 +221,7 @@ html, body, a, button, [onclick] { cursor: none !important; }
 #page5 {
   width: 100%;
   min-height: 80vh;
-  background-color: #151515;
+  background-color: #000000;
   padding-top: 25vw;
 }
 .marquee-text {

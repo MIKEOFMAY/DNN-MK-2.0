@@ -34,41 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // ===== 2. PAGE INITIALIZATION =====
   function initContactsMenuPage() {
     // A. Initialize Locomotive Scroll
-    if (typeof LocomotiveScroll !== "undefined") {
-      const locoScroll = new LocomotiveScroll({
-        el: document.querySelector(".data-scroll-container"),
-        smooth: true,
-        smartphone: { smooth: true },
-        tablet: { smooth: true }
-      });
 
-      // Sync with GSAP ScrollTrigger
-      if (typeof ScrollTrigger !== "undefined") {
-        locoScroll.on("scroll", ScrollTrigger.update);
-        ScrollTrigger.scrollerProxy(".data-scroll-container", {
-          scrollTop: function (value) {
-            return arguments.length
-              ? locoScroll.scrollTo(value, 0, 0)
-              : locoScroll.scroll.instance.scroll.y;
-          },
-          getBoundingClientRect: function () {
-            return {
-              top: 0,
-              left: 0,
-              width: window.innerWidth,
-              height: window.innerHeight
-            };
-          },
-          pinType: document.querySelector(".data-scroll-container").style.transform
-            ? "transform"
-            : "fixed"
-        });
-        ScrollTrigger.addEventListener("refresh", function () {
-          locoScroll.update();
-        });
-        ScrollTrigger.refresh();
-      }
-    }
 
     // B. Custom Cursor & Magnet (Desktop Only)
     if (window.innerWidth > 768 && typeof Shery !== "undefined") {
