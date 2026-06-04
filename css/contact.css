@@ -116,31 +116,51 @@ html, body, a, button, [onclick] {
 }
 .big-email-link {
   display: inline-block;
+  position: relative;
+  text-decoration: none;
+  cursor: none; 
+}
+
+.big-email-link .email-solid {
+  display: block;
   font-family: "Plain";
   font-weight: 500;
-  font-size: clamp(1.5rem, 2.5vw, 3rem); /* Size 2 - Scaled up for emphasis */
+  font-size: clamp(1.5rem, 2.5vw, 3rem);
   line-height: 1.2;
   color: #fff;
-  text-decoration: none;
-  position: relative;
-  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: left center; 
 }
-.big-email-link::after {
-  content: "";
+
+.big-email-link .email-outline {
   position: absolute;
-  bottom: -0.5vw;
+  top: 0;
   left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: #3F7DF4; 
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  display: block;
+  font-family: 'Silk Serif', serif;
+  font-style: italic;
+  font-size: clamp(1.5rem, 2.5vw, 3rem);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px #ffffff; 
+  opacity: 0;
+  transform: scale(1.05);
+  transform-origin: left center;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  text-transform: none; 
 }
-.big-email-link:hover { color: #3F7DF4; }
-.big-email-link:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
+
+.big-email-link:hover .email-solid {
+  opacity: 0.3;
+  transform: scale(0.95);
+  filter: blur(4px); 
+}
+
+.big-email-link:hover .email-outline {
+  opacity: 1;
+  transform: scale(1);
 }
 .cta-subtext {
   font-family: "Plain";

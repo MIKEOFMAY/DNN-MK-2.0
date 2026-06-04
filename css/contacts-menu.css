@@ -32,14 +32,17 @@ html, body, a, button, [onclick] { cursor: none !important; }
   align-items: center;
   gap: 0.5vw;
   font-family: "Plain";
-  font-size: 1vw;
+  font-size: 1rem; /* 🌟 ALSO CHANGED FROM 1vw TO 1rem TO MATCH ABOUT.CSS EXACTLY */
   line-height: 1.5;
   font-weight: 400;
   margin: 0 0 3vw 26vw;
   opacity: 0.7;
   transition: opacity 0.3s;
+  cursor: none !important;
 
-  
+  /* 🌟 ADD THESE TWO LINES TO STOP IT FROM STRETCHING ACROSS THE SCREEN */
+  align-self: flex-start; 
+  width: fit-content;
 }
 .back-link:hover { opacity: 1; }
 .back-link svg { width: 1.2vw; height: 1.2vw; }
@@ -221,7 +224,7 @@ html, body, a, button, [onclick] { cursor: none !important; }
 #page5 {
   width: 100%;
   min-height: 80vh;
-  background-color: #000000;
+  background-color: #151515;
   padding-top: 25vw;
 }
 .marquee-text {
@@ -328,6 +331,7 @@ footer { padding-bottom: 2vw; }
   #page1.menu-page { 
     min-height: auto; 
     padding-bottom: 5vw; 
+    
   }
   
   .menu-wrapper { 
