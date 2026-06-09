@@ -381,10 +381,9 @@ nav #nav-part2 {
 }
 
 #hero-content #flag {
-  width: 20vw;
-  height: 30vw;
-  -o-object-fit: cover;
-  object-fit: cover;
+  width: 25vw;
+  height: 25vw;
+  object-fit: contain; /* 🌟 Changed from 'cover' so your square SVG isn't cropped */
   position: absolute;
   top: 0;
   left: 0;
@@ -393,6 +392,7 @@ nav #nav-part2 {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   opacity: 0;
+  pointer-events: none; /* 🌟 Prevents the image from blocking mouse clicks */
 }
 
 #page2 {
@@ -866,7 +866,7 @@ nav #nav-part2 {
 }
 
 #page4-bottom p {
-  font-size: 0.85vw;
+  font-size: clamp(1.125rem, 1.2vw, 1.5rem); 
   margin-top: 1.5vw;
 }
 
