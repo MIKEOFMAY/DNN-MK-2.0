@@ -145,36 +145,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       // ===== INTERACTIVE CIRCLES CLICK BEHAVIOR =====
-      const circles = document.querySelectorAll('.interactive-circle');
 
-      circles.forEach(function(circle) {
-        circle.addEventListener('click', function(e) {
-          e.preventDefault();
-          
-          const wrapper = circle.closest('.project-image-wrapper');
-          if (!wrapper || !window.locoScrollInstance) return;
-          
-          // Get current section number from ID
-          const currentNum = parseInt(wrapper.id.split('-')[1]);
-          const nextNum = currentNum + 1;
-          const nextSection = document.getElementById(`section-${nextNum}`);
-          
-          // Determine target: next section or description
-          const target = nextSection || document.getElementById('description');
-          if (!target) return;
-          
-          // Use Locomotive Scroll's native scrollTo (simplest and most reliable)
-          window.locoScrollInstance.scrollTo(target, 0, 1200);
-          
-          // Refresh after animation completes
-          setTimeout(function() {
-            window.locoScrollInstance.update();
-            if (typeof ScrollTrigger !== "undefined") {
-              ScrollTrigger.refresh();
-            }
-          }, 1300);
-        });
-      });
     } // End of Shery.js block
 
     // ===== PARALLAX EFFECTS ON SCROLL =====
