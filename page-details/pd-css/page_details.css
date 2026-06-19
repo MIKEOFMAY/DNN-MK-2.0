@@ -59,7 +59,7 @@ html, body, a, button, [onclick] {
   gap: 3vw;
   font-size: 1.3vw;
   opacity: 0.7;
-  margin-left: 0.4vw; /* ← Adjust this value to nudge right */
+  margin-left: 0.4vw;
 }
 
 /* Remove default browser margins for exact alignment */
@@ -75,18 +75,25 @@ html, body, a, button, [onclick] {
   gap: 0;
 }
 
-/* Wrapper for image + circle positioning */
+/* Wrapper for image + caption + circle positioning */
 .project-image-wrapper {
   position: relative;
   width: 100%;
   display: flex;
-  align-items: flex-start;
+  flex-direction: column; /* Stacks image and caption vertically */
+  margin-bottom: 15vw;    /* Controls spacing between image blocks */
+  z-index: 1;
 }
 
-/* Full Width Image - REDUCED TO 85% */
+/* Alignment helpers for the wrapper */
+.full-wrapper { align-items: center; }
+.left-wrapper { align-items: flex-start; }
+.right-wrapper { align-items: flex-end; }
+
+/* Full Width Image */
 .project-image-full {
   width: 85%;
-  margin: 0 auto 15vw auto;
+  margin: 0 auto;
   overflow: hidden;
   display: block;
 }
@@ -105,7 +112,7 @@ html, body, a, button, [onclick] {
 /* Left Aligned Image */
 .project-image-left {
   width: 50%;
-  margin: 0 0 15vw 0;
+  margin: 0;
   overflow: hidden;
 }
 
@@ -123,7 +130,7 @@ html, body, a, button, [onclick] {
 /* Right Aligned Image */
 .project-image-right {
   width: 50%;
-  margin: 0 0 15vw auto;
+  margin: 0 0 0 auto;
   overflow: hidden;
 }
 
@@ -169,7 +176,6 @@ html, body, a, button, [onclick] {
 }
 
 /* Circle icon (arrow) */
-/* Circle icon (arrow) - BASE POSITIONING ONLY */
 .circle-icon {
   position: absolute;
   top: 50%;
@@ -178,8 +184,6 @@ html, body, a, button, [onclick] {
   pointer-events: none;
   z-index: 2;
   transition: opacity 0.3s ease;
-  
-  /* CRITICAL: Forces SVG to rotate around its own visual center */
   transform-box: fill-box;
   transform-origin: center;
 }
@@ -196,8 +200,6 @@ html, body, a, button, [onclick] {
 /* === ARROW 2: "Read Details" === */
 .circle-down .circle-icon {
   rotate: 0deg; 
-  
-  
 }
 
 .circle-icon svg {
@@ -272,6 +274,36 @@ html, body, a, button, [onclick] {
 .circle-caption:hover .circle-message {
   opacity: 1;
   scale: 1;
+}
+
+/* ===== IMAGE CAPTIONS ===== */
+.image-caption {
+  font-size: 1.3vw;
+  opacity: 0.7;
+  margin: 1.5vw 0 0 0;
+  line-height: 1.4;
+  font-weight: 300;
+  font-family: "plain light";
+  font-style: italic;
+  width: 100%;
+  
+  position: relative;
+}
+
+/* Constrain caption width to exactly match the image above it */
+.full-wrapper .image-caption {
+  max-width: 85%;
+  text-align: center;
+}
+
+.left-wrapper .image-caption {
+  max-width: 50%;
+  text-align: left;
+}
+
+.right-wrapper .image-caption {
+  max-width: 50%;
+  text-align: right;
 }
 
 /* Project Description Section */
@@ -519,20 +551,37 @@ footer {
     gap: 0;
   }
 
-  .project-image-full {
-    width: 85%;
-    margin: 0 auto 10vw auto;
+  /* Mobile wrapper spacing */
+  .project-image-wrapper {
+    margin-bottom: 10vw;
   }
 
+  /* Center everything on mobile */
+  .full-wrapper, 
+  .left-wrapper, 
+  .right-wrapper {
+    align-items: center;
+  }
+
+  /* Reset image widths & margins for mobile */
+  .project-image-full,
   .project-image-left,
   .project-image-right {
     width: 90%;
-    margin: 0 auto 10vw auto;
+    margin: 0 auto;
   }
 
   /* Hide interactive circles on mobile */
   .interactive-circle {
     display: none !important;
+  }
+
+  /* Mobile Caption Styles */
+  .image-caption {
+    font-size: 4vw;
+    margin-top: 4vw;
+    max-width: 90% !important;
+    text-align: center !important;
   }
 
   .project-description-section {

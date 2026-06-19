@@ -44,6 +44,8 @@ document.addEventListener("DOMContentLoaded", function () {
         tablet: { smooth: true }
       });
 
+      window.locoScrollInstance = locoScroll;
+
       // Sync with GSAP ScrollTrigger
       if (typeof ScrollTrigger !== "undefined") {
         locoScroll.on("scroll", ScrollTrigger.update);
@@ -83,9 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
         duration: 0.5
       });
 
-      // ===== GOOEY EFFECT - TARGET CONTAINER DIVS (NOT img) =====
-      // Shery.imageEffect must target the container element that wraps the img,
-      // matching the reference script.js pattern: Shery.imageEffect(".project-image", {...})
+      // ===== GOOEY EFFECT =====
       Shery.imageEffect(".project-image", {
         style: 6,
         gooey: true,
@@ -146,25 +146,41 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // ===== INTERACTIVE CIRCLES CLICK BEHAVIOR =====
       const circles = document.querySelectorAll('.interactive-circle');
-      
+
       circles.forEach(function(circle) {
         circle.addEventListener('click', function(e) {
           e.preventDefault();
           
-          // Find the next image wrapper or scroll target
           const wrapper = circle.closest('.project-image-wrapper');
-          const nextWrapper = wrapper ? wrapper.nextElementSibling : null;
+          if (!wrapper || !window.locoScrollInstance) return;
           
-          if (nextWrapper) {
-            nextWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          } else {
-            // Fallback: scroll to description
-            const desc = document.getElementById('description');
-            if (desc) desc.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Get current section number from ID (e.g., "section-2" -> 2)
+          const currentNum = parseInt(wrapper.id.split('-')[1]);
+          const nextNum = currentNum + 1;
+          const nextSection = document.getElementById(`section-${nextNum}`);
+          
+          // Determine target: next section or description
+          const target = nextSection || document.getElementById('description');
+          if (!target) return;
+          
+          // Disable ScrollTrigger during scroll to prevent glitching
+          if (typeof ScrollTrigger !== "undefined") {
+            ScrollTrigger.getAll().forEach(function(t) { t.disable(); });
           }
+          
+          // Scroll with Locomotive Scroll
+          window.locoScrollInstance.scrollTo(target);
+          
+          // Re-enable ScrollTrigger after scroll animation completes
+          setTimeout(function() {
+            if (typeof ScrollTrigger !== "undefined") {
+              ScrollTrigger.getAll().forEach(function(t) { t.enable(); });
+              ScrollTrigger.refresh();
+            }
+          }, 1200);
         });
       });
-    }
+    } // End of Shery.js block
 
     // ===== PARALLAX EFFECTS ON SCROLL =====
     if (typeof ScrollTrigger !== "undefined") {
@@ -217,8 +233,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       });
 
-      // ===== FOOTER UNDERLINE ANIMATION (NOT STATIC) =====
-      // Animates from left to right when footer scrolls into view
+      // ===== FOOTER UNDERLINE ANIMATION =====
       gsap.utils.toArray(".footer-line").forEach(function(line) {
         gsap.to(line, {
           scaleX: 1,
