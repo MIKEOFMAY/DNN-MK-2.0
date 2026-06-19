@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
           const wrapper = circle.closest('.project-image-wrapper');
           if (!wrapper || !window.locoScrollInstance) return;
           
-          // Get current section number from ID (e.g., "section-2" -> 2)
+          // Get current section number from ID
           const currentNum = parseInt(wrapper.id.split('-')[1]);
           const nextNum = currentNum + 1;
           const nextSection = document.getElementById(`section-${nextNum}`);
@@ -163,21 +163,16 @@ document.addEventListener("DOMContentLoaded", function () {
           const target = nextSection || document.getElementById('description');
           if (!target) return;
           
-          // Disable ScrollTrigger during scroll to prevent glitching
-          if (typeof ScrollTrigger !== "undefined") {
-            ScrollTrigger.getAll().forEach(function(t) { t.disable(); });
-          }
+          // Use Locomotive Scroll's native scrollTo (simplest and most reliable)
+          window.locoScrollInstance.scrollTo(target, 0, 1200);
           
-          // Scroll with Locomotive Scroll
-          window.locoScrollInstance.scrollTo(target);
-          
-          // Re-enable ScrollTrigger after scroll animation completes
+          // Refresh after animation completes
           setTimeout(function() {
+            window.locoScrollInstance.update();
             if (typeof ScrollTrigger !== "undefined") {
-              ScrollTrigger.getAll().forEach(function(t) { t.enable(); });
               ScrollTrigger.refresh();
             }
-          }, 1200);
+          }, 1300);
         });
       });
     } // End of Shery.js block
